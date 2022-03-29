@@ -11,3 +11,5 @@ require (
 	github.com/lib/pq v1.2.0
 	github.com/urfave/negroni v1.0.0
 )
+
+require github.com/MKwann7/web-engineering-knowledgebase v0.0.0-20220321224741-793fe96b9b92 // indirect
