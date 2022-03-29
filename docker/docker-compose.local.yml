@@ -1,0 +1,73 @@
+version: '3.8'
+
+services: 
+   web:
+      hostname: web.knowledgebase.docker
+      container_name: knowledgebase-web
+      build:
+         context: ./../
+         dockerfile: ./docker/web-local.dockerfile
+         args:
+            ENV: local
+      ports:
+         - "3020:1313"
+      volumes:
+         - "./../src/web:/app"
+         #- "./../docker/config.toml:/app/config.toml"
+      environment:
+         - HUGO_REFRESH_TIME=3600
+         - HUGO_THEME=material
+         - HUGO_BASEURL=http://knowledgebase.docker
+      networks:
+         knowledge:
+            ipv4_address: 172.1.0.2
+      links:
+         - pg
+      privileged: true
+   app:
+      hostname: app.knowledgebase.docker
+      container_name: knowledgebase-app
+      #image: excell_app:v1
+      build:
+         context: ./../
+         dockerfile: ./docker/app-local.dockerfile
+         args:
+            ENV: local
+      ports:
+         - "3021:8080"
+      volumes:
+         - "./../src/app:/app/code"
+         - "./../docker/env/app-local.env:/app/code/.env"
+         - "./../../app/logs:/app/logs"
+         - "./../../wpp/tmp:/app/tmp"
+         - "./../k6:/app/k6"
+      networks:
+         knowledge:
+            ipv4_address: 172.1.0.4
+      links:
+         - pg
+   pg:
+      hostname: db.knowledgebase.docker
+      image: 'postgres:13-alpine'
+      container_name: knowledgebase-pg
+      environment:
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: password1
+      ports:
+         - "5433:5432"
+      volumes:
+         - "./postgres-data:/var/lib/postgresql/data"
+         - "./init-scripts/postgres:/docker-entrypoint-initdb.d"
+      networks:
+         knowledge:
+            ipv4_address: 172.1.0.3
+
+networks:
+   knowledge:
+      external: false
+      driver: bridge
+      ipam:
+         driver: default
+         config:
+            - subnet: 172.1.0.0/16
+              gateway: 172.1.0.1
