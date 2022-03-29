@@ -1,9 +1,7 @@
 package main
 
 import (
-	"github.com/MKwann7/web-engineering-knowledgebase/src/app/src/code/controllers/api/ping"
 	"github.com/MKwann7/web-engineering-knowledgebase/src/app/src/code/controllers/healthcheck"
-	"github.com/MKwann7/web-engineering-knowledgebase/src/app/src/code/libraries/auth"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
@@ -54,21 +52,7 @@ func corseHandler(handler http.Handler) http.HandlerFunc {
 			responseWriter.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE")
 			responseWriter.Header().Set("Content-Type", "application/json charset=utf-8")
 		} else {
-			handler.ServeHTTP(responseWriter,webRequest)
+			handler.ServeHTTP(responseWriter, webRequest)
 		}
 	}
-}
-
-func validateAuth(f func(responseWriter http.ResponseWriter, webRequest *http.Request)) func(http.ResponseWriter, *http.Request)  {
-
-	user, validationError := auth.ValidateJwt(webRequest)
-
-	//if validationError != nil {
-	//	errorManagement.HandleErr(responseWriter, validationError, http.StatusBadRequest)
-	//	log.Println(validationError.Error())
-	//	return
-	//}
-
-	return f
-
 }

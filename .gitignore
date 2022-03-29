@@ -1,1 +1,5 @@
 /docker/mysql-data/
+/.idea
+/src/app/.env
+/docker/postgres-data/
+/src/app/src/code/.env
