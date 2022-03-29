@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/MKwann7/web-engineering-knowledgebase/src/app/src/code/controllers/healthcheck"
+	"github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/controllers/healthcheck"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 	"github.com/urfave/negroni"
 	"log"

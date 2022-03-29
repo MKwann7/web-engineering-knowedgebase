@@ -12,7 +12,7 @@ services:
       ports:
          - "3020:1313"
       volumes:
-         - "./../src/web:/app"
+         - "./../app/web:/app"
          #- "./../docker/config.toml:/app/config.toml"
       environment:
          - HUGO_REFRESH_TIME=3600
@@ -30,16 +30,14 @@ services:
       #image: excell_app:v1
       build:
          context: ./../
-         dockerfile: ./docker/app-local.dockerfile
+         dockerfile: ./docker/api-local.dockerfile
          args:
             ENV: local
       ports:
          - "3021:8080"
       volumes:
-         - "./../src/app:/app/code"
+         - "./../app/api:/app/code"
          - "./../docker/env/app-local.env:/app/code/.env"
-         - "./../../app/logs:/app/logs"
-         - "./../../wpp/tmp:/app/tmp"
          - "./../k6:/app/k6"
       networks:
          knowledge:

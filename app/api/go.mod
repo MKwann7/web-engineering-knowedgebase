@@ -1,4 +1,4 @@
-module github.com/MKwann7/web-engineering-knowledgebase/src/app
+module github.com/MKwann7/web-engineering-knowledgebase/app/api
 
 go 1.18
 
@@ -11,3 +11,5 @@ require (
 	github.com/lib/pq v1.2.0
 	github.com/urfave/negroni v1.0.0
 )
+
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/controllers/healthcheck => ../api/src/code/controllers/healthcheck
