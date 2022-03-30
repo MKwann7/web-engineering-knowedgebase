@@ -4,29 +4,49 @@ services:
    web:
       hostname: web.knowledgebase.docker
       container_name: knowledgebase-web
+      #image: excell_app:v1
       build:
          context: ./../
          dockerfile: ./docker/web-local.dockerfile
          args:
             ENV: local
       ports:
-         - "3020:1313"
+         - "3020:8080"
       volumes:
-         - "./../app/web:/app"
-         #- "./../docker/config.toml:/app/config.toml"
-      environment:
-         - HUGO_REFRESH_TIME=3600
-         - HUGO_THEME=material
-         - HUGO_BASEURL=http://knowledgebase.docker
+         - "./../app/web:/app/code"
+         - "./../app/web/templates:/app/templates"
+         - "./../app/web/static:/app/static"
+         - "./../docker/env/web-local.env:/app/code/.env"
+         - "./../k6/web:/app/k6"
       networks:
          knowledge:
             ipv4_address: 172.1.0.2
       links:
          - pg
       privileged: true
-   app:
-      hostname: app.knowledgebase.docker
-      container_name: knowledgebase-app
+#   hugo:
+#      hostname: hugo.knowledgebase.docker
+#      container_name: knowledgebase-hugo
+#      image: klakegg/hugo:0.95.0-ext
+#      command: >
+#         server
+#         "./src/build.sh"
+#      ports:
+#         - "3020:1313"
+#      volumes:
+#         - "./../app/hugo:/src"
+#      environment:
+#         - HUGO_REFRESH_TIME=3600
+#         - HUGO_BASEURL=http://knowledgebase.docker
+#      networks:
+#         knowledge:
+#            ipv4_address: 172.1.0.2
+#      links:
+#         - pg
+#      privileged: true
+   api:
+      hostname: api.knowledgebase.docker
+      container_name: knowledgebase-api
       #image: excell_app:v1
       build:
          context: ./../
@@ -38,7 +58,7 @@ services:
       volumes:
          - "./../app/api:/app/code"
          - "./../docker/env/app-local.env:/app/code/.env"
-         - "./../k6:/app/k6"
+         - "./../k6/api:/app/k6"
       networks:
          knowledge:
             ipv4_address: 172.1.0.4

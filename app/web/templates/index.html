@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{.Name}}</title>
+    <meta charset="utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="/static/js/app.min.js" type="application/javascript"></script>
+</head>
+<body class="theme_shade_light">
+<div class="app-wrapper">
+    <div class="app-wrapper-inner">
+        <h1>Hello, {{.Name}}, ID number: {{.Id}}</h1>
+        <p>
+            You have scored {{.Marks}}!
+        <p>
+        <div id="app-vue" class="app-card">
+            Hello world!
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    const myApp = {
+        template: `
+            <div>This is a change: [[ resultData ]].</div>
+        `,
+        data() {
+            return {
+                resultData: "testing..."
+            }
+        },
+        methods: {
+            load() {
+                const self = this;
+                axios.get("http://localhost:3021/health-check")
+                    .then(response => {
+                        self.resultData = response.data;
+                    })
+            }
+        },
+        mounted() {
+            this.load();
+        },
+        delimiters: ['[[', ']]'],
+    }
+    const vueApp = Vue.createApp(myApp);
+    vueApp.mount("#app-vue")
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+    });
+</script>
+</body>
+</html>

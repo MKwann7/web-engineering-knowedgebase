@@ -12,4 +12,8 @@ require (
 	github.com/urfave/negroni v1.0.0
 )
 
-replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/controllers/healthcheck => ../api/src/code/controllers/healthcheck
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/controllers => ../api/src/code/controllers
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/libraries/builder => ../api/src/code/libraries/builder
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/libraries/db => ../api/src/code/libraries/db
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/libraries/exceptions => ../api/src/code/libraries/exceptions
+replace github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/libraries/helper => ../api/src/code/libraries/helper

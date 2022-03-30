@@ -1,0 +1,10 @@
+server:
+  container_name: hugo
+  image: klakegg/hugo:ext-ubuntu
+  #image: klakegg/hugo:0.88.0-ext-ubuntu
+  command: >
+    "hugo mod init"
+  volumes:
+    - "/mnt/hugo:/src"
+  ports:
+    - "1313:1313"

@@ -1,7 +1,7 @@
 package builder
 
 import (
-	"github.com/MKwann7/web-engineering-knowledgebase/src/app/src/code/libraries/db"
+	"github.com/MKwann7/web-engineering-knowledgebase/app/api/src/code/libraries/db"
 	"github.com/google/uuid"
 	"reflect"
 	"strconv"
